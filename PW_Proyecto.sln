@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PW_Proyecto", "PW_Proyecto\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelosApp", "ModelosApp\ModelosApp.csproj", "{9F170F7B-A136-45DC-9AEB-5147ED9EBCA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PW_API_Proyecto", "PW_API_Proyecto\PW_API_Proyecto.csproj", "{F8662DEC-63DE-4C4F-99FE-13296F7792C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PW_API", "..\..\..\source\repos\PW_API\PW_API\PW_API.csproj", "{C3A34A0E-D75E-4B01-95AB-529FE7016207}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,10 @@ Global
 		{9F170F7B-A136-45DC-9AEB-5147ED9EBCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F170F7B-A136-45DC-9AEB-5147ED9EBCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F170F7B-A136-45DC-9AEB-5147ED9EBCA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8662DEC-63DE-4C4F-99FE-13296F7792C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8662DEC-63DE-4C4F-99FE-13296F7792C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8662DEC-63DE-4C4F-99FE-13296F7792C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8662DEC-63DE-4C4F-99FE-13296F7792C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A34A0E-D75E-4B01-95AB-529FE7016207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A34A0E-D75E-4B01-95AB-529FE7016207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A34A0E-D75E-4B01-95AB-529FE7016207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A34A0E-D75E-4B01-95AB-529FE7016207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

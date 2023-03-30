@@ -15,9 +15,9 @@ public partial class Partido
 
     public DateTime Fecha { get; set; }
 
-    public virtual Torneo? Jugador1 { get; set; } = null!;
+    public virtual User? Jugador1 { get; set; } = null!;
 
-    public virtual Torneo? Jugador2 { get; set; } = null!;
+    public virtual User? Jugador2 { get; set; } = null!;
 
     public virtual Torneo? Torneo { get; set; } = null!;
 }

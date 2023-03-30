@@ -19,11 +19,11 @@ public partial class TorneoappContext : DbContext
 
     public virtual DbSet<Torneo> Torneos { get; set; }
 
-    public virtual DbSet<Torneo> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=127.0.0.1;userid=root;password=admin;database=Torneoapp;TreatTinyAsBoolean=False");
+        => optionsBuilder.UseMySQL("server=127.0.0.1;userid=root;password=admin;database=torneoapp;TreatTinyAsBoolean=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -89,7 +89,7 @@ public partial class TorneoappContext : DbContext
             entity.HasMany(d => d.Users).WithMany(p => p.Torneos)
                 .UsingEntity<Dictionary<string, object>>(
                     "Participante",
-                    r => r.HasOne<Torneo>().WithMany()
+                    r => r.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("participantes_ibfk_2"),
@@ -107,7 +107,7 @@ public partial class TorneoappContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<Torneo>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 

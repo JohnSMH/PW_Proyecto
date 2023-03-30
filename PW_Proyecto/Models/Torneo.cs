@@ -15,9 +15,9 @@ public partial class Torneo
 
     public int Organizador { get; set; }
 
-    public virtual Torneo? OrganizadorNavigation { get; set; } = null!;
+    public virtual User OrganizadorNavigation { get; set; } = null!;
 
     public virtual ICollection<Partido>? Partidos { get; } = new List<Partido>();
 
-    public virtual ICollection<Torneo>? Users { get; } = new List<Torneo>();
+    public virtual ICollection<User>? Users { get; } = new List<User>();
 }

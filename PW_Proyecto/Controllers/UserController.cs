@@ -20,7 +20,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Models.Torneo user = appContext.Users.Find(id);
+                Models.User user = appContext.Users.Find(id);
                 return View(user);
             }
             catch (Exception)
@@ -39,7 +39,7 @@ namespace PW_Proyecto.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Models.Torneo newUser)
+        public ActionResult Create(Models.User newUser)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Models.Torneo usuario = appContext.Users.FindAsync(id).Result;
+                Models.User usuario = appContext.Users.FindAsync(id).Result;
                 if (usuario == null) {
                     return NotFound();
                 }
@@ -75,7 +75,7 @@ namespace PW_Proyecto.Controllers
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Models.Torneo editUser)
+        public ActionResult Edit(int id, Models.User editUser)
         {
             try
             {
@@ -92,14 +92,14 @@ namespace PW_Proyecto.Controllers
         // GET: UserController/Delete/5
         public ActionResult Delete(int id)
         {
-            Models.Torneo user = appContext.Users.Find(id);
+            Models.User user = appContext.Users.Find(id);
             return View(user);
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Torneo user)
+        public ActionResult Delete(int id, User user)
         {
             try
             {
