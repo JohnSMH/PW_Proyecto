@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+  }
+  
+  h1 {
+    color: #000;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #ddd;
+  }
+  
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .btn-agregar {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #00FF00;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
