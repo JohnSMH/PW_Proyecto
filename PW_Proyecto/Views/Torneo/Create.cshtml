@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Organizador" class="control-label"></label>
-                <input asp-for="Organizador" class="form-control" />
+                <select asp-for="Organizador" class="form-control" asp-items="ViewBag.Usuarios"></select>
                 <span asp-validation-for="Organizador" class="text-danger"></span>
             </div>
             <div class="form-group">

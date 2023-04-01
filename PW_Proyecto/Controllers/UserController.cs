@@ -12,7 +12,7 @@ namespace PW_Proyecto.Controllers
         // GET: UserController
         public async Task<IActionResult> Index()
         {
-            return View(await appContext.Users.ToListAsync());
+            return View(Functions.APIServicesUsuarios.GetUsuarios().Result);
         }
 
         // GET: UserController/Details/5
@@ -20,7 +20,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Models.User user = appContext.Users.Find(id);
+                Models.User user = Functions.APIServicesUsuarios.GetUsuario(id).Result;
                 return View(user);
             }
             catch (Exception)
@@ -43,8 +43,9 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Users.Add(newUser);
-                appContext.SaveChanges();
+                var result = Functions.APIServicesUsuarios.PostUsuario(newUser);
+                //appContext.Users.Add(newUser);
+                //appContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -58,7 +59,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Models.User usuario = appContext.Users.FindAsync(id).Result;
+                Models.User usuario = Functions.APIServicesUsuarios.GetUsuario(id).Result;
                 if (usuario == null) {
                     return NotFound();
                 }
@@ -79,8 +80,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Users.Update(editUser);
-                appContext.SaveChanges();
+                Functions.APIServicesUsuarios.PutUsuario(editUser,id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -92,7 +92,7 @@ namespace PW_Proyecto.Controllers
         // GET: UserController/Delete/5
         public ActionResult Delete(int id)
         {
-            Models.User user = appContext.Users.Find(id);
+            Models.User user = Functions.APIServicesUsuarios.GetUsuario(id).Result;
             return View(user);
         }
 
@@ -103,8 +103,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Users.Remove(user);
-                appContext.SaveChanges();
+                Functions.APIServicesUsuarios.DeleteUsuario(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

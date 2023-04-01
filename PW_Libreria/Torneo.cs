@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PW_Proyecto.Models;
+namespace PW_API.Models;
 
 public partial class Torneo
 {
@@ -14,10 +14,4 @@ public partial class Torneo
     public int MaxParticipantes { get; set; }
 
     public int Organizador { get; set; }
-
-    public virtual User? OrganizadorNavigation { get; set; } = null!;
-
-    public virtual ICollection<Partido>? Partidos { get; } = new List<Partido>();
-
-    public virtual ICollection<User>? Users { get; } = new List<User>();
 }

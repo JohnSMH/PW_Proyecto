@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PW_Proyecto.Models;
+namespace PW_API.Models;
 
 public partial class Torneo
 {

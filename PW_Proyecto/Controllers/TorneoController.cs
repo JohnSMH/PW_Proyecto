@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PW_Proyecto.Models;
 
@@ -11,7 +12,7 @@ namespace PW_Proyecto.Controllers
         // GET: TorneoController
         public async Task<IActionResult> Index()
         {
-            return View(await appContext.Torneos.ToListAsync());
+            return View(Functions.APIServiceTorneo.GetTorneos().Result);
         }
 
         // GET: TorneoController/Details/5
@@ -19,7 +20,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Torneo user = appContext.Torneos.Find(id);
+                Torneo user = Functions.APIServiceTorneo.GetTorneo(id).Result;
                 return View(user);
             }
             catch (Exception)
@@ -32,6 +33,13 @@ namespace PW_Proyecto.Controllers
         // GET: TorneoController/Create
         public ActionResult Create()
         {
+            IEnumerable<Models.User> usuarios = Functions.APIServicesUsuarios.GetUsuarios().Result;
+            List<SelectListItem> Usuarios = usuarios.Select(info => new SelectListItem
+            {
+                Value = info.Id.ToString(),
+                Text = info.Name.ToString()
+            }).ToList();
+            ViewBag.Usuarios = Usuarios;
             return View();
         }
 
@@ -42,8 +50,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Torneos.Add(newTorneo);
-                appContext.SaveChanges();
+                Functions.APIServiceTorneo.PostTorneo(newTorneo);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -57,11 +64,18 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                Torneo torneo = appContext.Torneos.FindAsync(id).Result;
+                Torneo torneo = Functions.APIServiceTorneo.GetTorneo(id).Result;
                 if (torneo == null)
                 {
                     return NotFound();
                 }
+                IEnumerable<Models.User> usuarios = Functions.APIServicesUsuarios.GetUsuarios().Result;
+                List<SelectListItem> Usuarios = usuarios.Select(info => new SelectListItem
+                {
+                    Value = info.Id.ToString(),
+                    Text = info.Name.ToString()
+                }).ToList();
+                ViewBag.Usuarios = Usuarios;
                 return View(torneo);
             }
             catch (Exception)
@@ -78,8 +92,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Torneos.Update(torneo);
-                appContext.SaveChanges();
+                Functions.APIServiceTorneo.PutTorneo(torneo, id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -91,7 +104,7 @@ namespace PW_Proyecto.Controllers
         // GET: TorneoController/Delete/5
         public ActionResult Delete(int id)
         {
-            Torneo torneo = appContext.Torneos.Find(id);
+            Torneo torneo = Functions.APIServiceTorneo.GetTorneo(id).Result;
             return View(torneo);
         }
 
@@ -102,8 +115,7 @@ namespace PW_Proyecto.Controllers
         {
             try
             {
-                appContext.Torneos.Remove(torneo);
-                appContext.SaveChanges();
+                Functions.APIServiceTorneo.DeleteTorneo(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

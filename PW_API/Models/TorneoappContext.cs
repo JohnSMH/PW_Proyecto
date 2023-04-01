@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace PW_Proyecto.Models;
+namespace PW_API.Models;
 
 public partial class TorneoappContext : DbContext
 {
@@ -41,6 +41,7 @@ public partial class TorneoappContext : DbContext
 
         }
     }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

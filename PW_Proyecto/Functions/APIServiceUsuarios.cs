@@ -7,9 +7,9 @@ namespace PW_Proyecto.Functions
     public static class APIServicesUsuarios
     {
         public static int timeout = 30;
-        public static string baseurl = "https://localhost:7135/api/Users";
+        public static string baseurl = "https://localhost:7073/api/Users";
 
-        public static async Task<IEnumerable<Torneo>> GetUsuarios()
+        public static async Task<IEnumerable<User>> GetUsuarios()
         {
             HttpClientHandler clientHandler = new()
             {
@@ -25,7 +25,7 @@ namespace PW_Proyecto.Functions
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return JsonConvert.DeserializeObject<IEnumerable<Torneo>>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<IEnumerable<User>>(await response.Content.ReadAsStringAsync());
             }
             else
             {
@@ -33,7 +33,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> PostUsuario(Torneo object_to_serialize)
+        public static async Task<User> PostUsuario(User object_to_serialize)
         {
             var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
             var content = new StringContent(json_, Encoding.UTF8, "application/json");
@@ -52,7 +52,7 @@ namespace PW_Proyecto.Functions
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
 
             {
-                return JsonConvert.DeserializeObject<Torneo>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
             }
 
             else
@@ -62,7 +62,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> GetUsuario(int id)
+        public static async Task<User> GetUsuario(int id)
         {
 
             HttpClientHandler clientHandler = new()
@@ -79,7 +79,7 @@ namespace PW_Proyecto.Functions
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
 
             {
-                return JsonConvert.DeserializeObject<Torneo>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
             }
 
             else
@@ -88,7 +88,7 @@ namespace PW_Proyecto.Functions
                 throw new Exception(response.StatusCode.ToString());
             }
         }
-        public static async Task<Torneo> PutUsuario(Torneo object_to_serialize, int id)
+        public static async Task<User> PutUsuario(User object_to_serialize, int id)
         {
             var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
             var content = new StringContent(json_, Encoding.UTF8, "application/json");
@@ -107,7 +107,7 @@ namespace PW_Proyecto.Functions
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
 
             {
-                return JsonConvert.DeserializeObject<Torneo>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
             }
 
             else
@@ -117,7 +117,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> DeleteUsuario(int id)
+        public static async Task<User> DeleteUsuario(int id)
         {
 
             HttpClientHandler clientHandler = new()
@@ -134,7 +134,7 @@ namespace PW_Proyecto.Functions
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
 
             {
-                return JsonConvert.DeserializeObject<Torneo>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
             }
 
             else

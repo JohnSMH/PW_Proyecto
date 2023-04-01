@@ -7,9 +7,9 @@ namespace PW_Proyecto.Functions
     public class APIServiceTorneo
     {
         public static int timeout = 30;
-        public static string baseurl = "https://localhost:7135/api/Torneos";
+        public static string baseurl = "https://localhost:7073/api/Torneos";
 
-        public static async Task<IEnumerable<Torneo>> GetUsuarios()
+        public static async Task<IEnumerable<Torneo>> GetTorneos()
         {
             HttpClientHandler clientHandler = new()
             {
@@ -33,7 +33,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> PostUsuario(Torneo object_to_serialize)
+        public static async Task<Torneo> PostTorneo(Torneo object_to_serialize)
         {
             var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
             var content = new StringContent(json_, Encoding.UTF8, "application/json");
@@ -62,7 +62,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> GetUsuario(int id)
+        public static async Task<Torneo> GetTorneo(int id)
         {
 
             HttpClientHandler clientHandler = new()
@@ -88,7 +88,7 @@ namespace PW_Proyecto.Functions
                 throw new Exception(response.StatusCode.ToString());
             }
         }
-        public static async Task<Torneo> PutUsuario(Torneo object_to_serialize, int id)
+        public static async Task<Torneo> PutTorneo(Torneo object_to_serialize, int id)
         {
             var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
             var content = new StringContent(json_, Encoding.UTF8, "application/json");
@@ -117,7 +117,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> DeleteUsuario(int id)
+        public static async Task<Torneo> DeleteTorneo(int id)
         {
 
             HttpClientHandler clientHandler = new()
