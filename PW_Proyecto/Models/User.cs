@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PW_Proyecto.Models;
 
@@ -20,6 +21,6 @@ public partial class User
     public virtual ICollection<Partido>? PartidoJugador2s { get; } = new List<Partido>();
 
     public virtual ICollection<Torneo>? TorneosNavigation { get; } = new List<Torneo>();
-
+    [JsonIgnore]
     public virtual ICollection<Torneo>? Torneos { get; } = new List<Torneo>();
 }

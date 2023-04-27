@@ -63,6 +63,7 @@ public partial class TorneoappContext : DbContext
             entity.Property(e => e.Jugador1Id).HasColumnName("jugador1_id");
             entity.Property(e => e.Jugador2Id).HasColumnName("jugador2_id");
             entity.Property(e => e.TorneoId).HasColumnName("torneo_id");
+            entity.Property(e => e.Resultado).HasColumnName("resultado");
 
             entity.HasOne(d => d.Jugador1).WithMany(p => p.PartidoJugador1s)
                 .HasForeignKey(d => d.Jugador1Id)
@@ -136,6 +137,7 @@ public partial class TorneoappContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(100);
             entity.Property(e => e.Username).HasMaxLength(50);
         });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

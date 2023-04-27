@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,24 +23,51 @@ namespace PW_API.Controllers
 
         // GET: api/Partidos
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Partido>>> GetPartidos()
         {
           if (_context.Partidos == null)
           {
               return NotFound();
           }
-            return await _context.Partidos.ToListAsync();
+            return await _context.Partidos
+                .Include(p => p.Jugador1)
+                .Include(p => p.Jugador2)
+                .Include(p => p.Torneo)
+                .ToListAsync();
+        }
+
+        // GET: api/Partidos/torneo/5
+        [HttpGet("torneo/{id}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Partido>>> GetPartidosbyTorneo(int id)
+        {
+            if (_context.Partidos == null)
+            {
+                return NotFound();
+            }
+            return await _context.Partidos
+                .Include(p => p.Jugador1)
+                .Include(p => p.Jugador2)
+                .Include(p => p.Torneo)
+                .Where(p => p.TorneoId == id)
+                .ToListAsync();
         }
 
         // GET: api/Partidos/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Partido>> GetPartido(int id)
         {
           if (_context.Partidos == null)
           {
               return NotFound();
           }
-            var partido = await _context.Partidos.FindAsync(id);
+            var partido = await _context.Partidos
+                .Include(p => p.Jugador1)
+                .Include(p => p.Jugador2)
+                .Include(p => p.Torneo)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (partido == null)
             {
@@ -52,6 +80,7 @@ namespace PW_API.Controllers
         // PUT: api/Partidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutPartido(int id, Partido partido)
         {
             if (id != partido.Id)
@@ -83,6 +112,7 @@ namespace PW_API.Controllers
         // POST: api/Partidos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Partido>> PostPartido(Partido partido)
         {
           if (_context.Partidos == null)
@@ -97,6 +127,7 @@ namespace PW_API.Controllers
 
         // DELETE: api/Partidos/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletePartido(int id)
         {
             if (_context.Partidos == null)

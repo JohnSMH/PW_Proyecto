@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PW_Proyecto.Models;
+using PW_Proyecto.Models.Auth;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace PW_Proyecto.Controllers
 {
@@ -13,27 +18,83 @@ namespace PW_Proyecto.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Authorize]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Route("/login")]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        public IActionResult AboutUs()
+        [Route("/login")]
+        [HttpPost]
+        public async Task<IActionResult> Login(UserAuth credentials)
+        {
+            var user = await ApiService.Login(credentials);
+            if (user == null)
+            {
+                return View(credentials);
+            }
+            var claims = new List<Claim>
+            {
+                new Claim("username", user.Username),
+                new Claim("TokenAPI", user.Token)
+            };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(claimsPrincipal);
+            ApiService.token = user.Token;
+            return RedirectToAction("Index", "Torneo");
+        }
+
+        [Route("/register")]
+        [HttpGet]
+        public async Task<IActionResult> Register()
         {
             return View();
         }
 
-        public IActionResult Register()
+        [Route("/register")]
+        [HttpPost]
+        public async Task<IActionResult> Register(User usuarionuevo)
+        {
+            var user = await ApiService.Register(usuarionuevo);
+            if (user != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim("username", user.Username),
+                    new Claim("TokenAPI", user.Token)
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await HttpContext.SignInAsync(claimsPrincipal);
+                ApiService.token = user.Token;
+                return RedirectToAction("Index", "Torneo");
+            }
+            return View(usuarionuevo);
+        }
+
+        [Route("/logout")]
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
+
+        public IActionResult AboutUs()
         {
             return View();
         }

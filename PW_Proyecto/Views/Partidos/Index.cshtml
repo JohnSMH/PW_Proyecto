@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PW_Proyecto.Models.Partido>
+
+<h1>Partidos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Torneo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jugador1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jugador2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resultado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var partido in Model)
+        {
+            <tr>
+                <td>@partido.Fecha.ToShortDateString()</td>
+                <td>@partido.Torneo.Nombre</td>
+                <td>@partido.Jugador1.Name</td>
+                <td>@partido.Jugador2.Name</td>
+                <td>
+                    @if (partido.Resultado.HasValue)
+                    {
+                        if (partido.Resultado == 1)
+                        {
+                            @partido.Jugador1.Name
+                        }
+                        else if (partido.Resultado == 0)
+                        {
+                            @partido.Jugador2.Name
+                        }
+                        else
+                        {
+                            <span class="text-muted">0.5</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">No jugado</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@partido.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@partido.Id">Details</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

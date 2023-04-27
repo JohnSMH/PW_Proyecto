@@ -1,4 +1,4 @@
-﻿@model PW_Proyecto.Models.Torneo
+﻿@model PW_Proyecto.Models.TorneoPartidasViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,32 +11,122 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.torneo.Nombre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.torneo.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaInicio)
+            @Html.DisplayNameFor(model => model.torneo.FechaInicio)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaInicio)
+            @Html.DisplayFor(model => model.torneo.FechaInicio)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxParticipantes)
+            @Html.DisplayNameFor(model => model.torneo.MaxParticipantes)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxParticipantes)
+            @Html.DisplayFor(model => model.torneo.MaxParticipantes)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Organizador)
+            @Html.DisplayNameFor(model => model.torneo.Organizador)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Organizador)
+            @Html.DisplayFor(model => model.torneo.Organizador)
         </dd>
     </dl>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                @foreach (var opponent in Model.torneo.Users)
+                {
+                    <th>@opponent.Name</th>
+                }
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model.torneo.Users)
+            {
+                <tr>
+                    <td>@player.Name</td>
+                    @foreach (var opponent in Model.torneo.Users)
+                    {
+                        var match = Model.partidos.FirstOrDefault(m => m.Jugador1Id == player.Id && m.Jugador2Id == opponent.Id);
+                        if (match != null)
+                        {
+                            if (match.Jugador1Id == player.Id && match.Resultado != null)
+                            {
+                                if (match.Resultado == 1)
+                                {
+                                    <td>1</td>
+                                }
+                                else
+                                {
+                                    <td>0</td>
+                                }
+                            }
+                            else if (match.Jugador2Id == player.Id && match.Resultado != null)
+                            {
+                                if (match.Resultado == 0)
+                                {
+                                    <td>1</td>
+                                }
+                                else
+                                {
+                                    <td>0</td>
+                                }
+                            }
+                            else if (match.Jugador1Id == player.Id && match.Jugador2Id == player.Id)
+                            {
+                                <td>X</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                        else
+                        {
+                            <td>X</td>
+                        }
+                    }
+                    <td>@Model.partidos.Where(m => m.Jugador1Id == player.Id || m.Jugador2Id == player.Id).Sum(m => m.Resultado == null ? 0 : (m.Jugador1Id == player.Id ? m.Resultado : (m.Resultado == 0 ? 1 : 0)))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.torneo.Id">Edit</a> |
+    <a asp-controller="Torneo" asp-action="IndexByTorneo" asp-route-id="@Model?.torneo.Id">Ver Partidas de Torneo</a> |
     <a asp-action="Index">Back to List</a>
 </div>

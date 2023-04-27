@@ -33,7 +33,7 @@ namespace PW_Proyecto.Functions
             }
         }
 
-        public static async Task<Torneo> PostTorneo(Torneo object_to_serialize)
+        public static async Task<Torneo> PostTorneo(TorneoPayload object_to_serialize)
         {
             var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(object_to_serialize);
             var content = new StringContent(json_, Encoding.UTF8, "application/json");

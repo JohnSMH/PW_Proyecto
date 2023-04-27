@@ -14,6 +14,7 @@ public partial class Partido
     public int Jugador2Id { get; set; }
 
     public DateTime Fecha { get; set; }
+    public int? Resultado { get; set; }
 
     public virtual User? Jugador1 { get; set; } = null!;
 

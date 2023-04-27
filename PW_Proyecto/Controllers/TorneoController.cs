@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging;
 using PW_Proyecto.Models;
 
 namespace PW_Proyecto.Controllers
@@ -15,13 +16,26 @@ namespace PW_Proyecto.Controllers
             return View(Functions.APIServiceTorneo.GetTorneos().Result);
         }
 
+        public ActionResult IndexByTorneo(int id)
+        {
+            return View(Functions.APIServicePartidos.GetPartidosFilterTorneo(id).Result);
+        }
+
         // GET: TorneoController/Details/5
         public ActionResult Details(int id)
         {
             try
             {
                 Torneo user = Functions.APIServiceTorneo.GetTorneo(id).Result;
-                return View(user);
+                var Partidas = appContext.Partidos
+                            .Include(p => p.Jugador1)
+                            .Include(p => p.Jugador2)
+                            .Where(p => p.TorneoId == id)
+                            .ToList();
+                return View(new TorneoPartidasViewModel { 
+                    torneo = user,
+                    partidos = Partidas
+                });
             }
             catch (Exception)
             {
@@ -46,11 +60,20 @@ namespace PW_Proyecto.Controllers
         // POST: TorneoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Torneo newTorneo)
+        public ActionResult Create(TorneoViewModel newTorneoView)
         {
             try
             {
-                Functions.APIServiceTorneo.PostTorneo(newTorneo);
+                List<int> ListaUsuarios = newTorneoView.ParticipantesIds;
+                    //appContext.Users.Where(u => newTorneoView.ParticipantesIds.Contains(u.Id)).ToList();
+                Torneo newTorneo = new Torneo
+                {
+                    Nombre = newTorneoView.Nombre,
+                    FechaInicio = newTorneoView.FechaInicio,
+                    MaxParticipantes = newTorneoView.MaxParticipantes,
+                    Organizador = newTorneoView.Organizador
+                };
+                Functions.APIServiceTorneo.PostTorneo(new TorneoPayload { Torneo = newTorneo, ParticipantesIDs = ListaUsuarios } );
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -70,11 +93,14 @@ namespace PW_Proyecto.Controllers
                     return NotFound();
                 }
                 IEnumerable<Models.User> usuarios = Functions.APIServicesUsuarios.GetUsuarios().Result;
+
                 List<SelectListItem> Usuarios = usuarios.Select(info => new SelectListItem
                 {
                     Value = info.Id.ToString(),
                     Text = info.Name.ToString()
                 }).ToList();
+
+     
                 ViewBag.Usuarios = Usuarios;
                 return View(torneo);
             }

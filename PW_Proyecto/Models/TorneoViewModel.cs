@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
-namespace PW_API.Models;
+namespace PW_Proyecto.Models;
 
-public partial class Torneo
+public partial class TorneoViewModel
 {
     public int Id { get; set; }
 
@@ -17,8 +16,10 @@ public partial class Torneo
     public int Organizador { get; set; }
 
     public virtual User? OrganizadorNavigation { get; set; } = null!;
-    [JsonIgnore]
+
     public virtual ICollection<Partido>? Partidos { get; } = new List<Partido>();
 
     public virtual ICollection<User>? Users { get; } = new List<User>();
+
+    public List<int> ParticipantesIds { get; set; }
 }
