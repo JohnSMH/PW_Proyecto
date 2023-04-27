@@ -13,6 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Jugador1Id" />
+            <input type="hidden" asp-for="Jugador2Id" />
+            <input type="hidden" asp-for="TorneoId" />
             <div class="form-group">
                 <label asp-for="Torneo.Nombre" class="control-label"></label>
                 <input asp-for="Torneo.Nombre" class="form-control" readonly="readonly" />
