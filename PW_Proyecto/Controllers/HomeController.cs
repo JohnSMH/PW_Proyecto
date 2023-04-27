@@ -54,7 +54,7 @@ namespace PW_Proyecto.Controllers
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(claimsPrincipal);
             ApiService.token = user.Token;
-            return RedirectToAction("Index", "Torneo");
+            return RedirectToAction("Index");
         }
 
         [Route("/register")]
@@ -80,7 +80,7 @@ namespace PW_Proyecto.Controllers
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
                 ApiService.token = user.Token;
-                return RedirectToAction("Index", "Torneo");
+                return RedirectToAction("Index");
             }
             return View(usuarionuevo);
         }

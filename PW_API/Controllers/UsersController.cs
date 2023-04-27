@@ -23,7 +23,6 @@ namespace PW_API.Controllers
 
         // GET: api/Users
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
           if (_context.Users == null)
@@ -35,7 +34,6 @@ namespace PW_API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<User>> GetUser(int id)
         {
           if (_context.Users == null)
@@ -55,7 +53,7 @@ namespace PW_API.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
@@ -87,7 +85,7 @@ namespace PW_API.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
+
         public async Task<ActionResult<User>> PostUser(User user)
         {
           if (_context.Users == null)
@@ -102,7 +100,7 @@ namespace PW_API.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> DeleteUser(int id)
         {
             if (_context.Users == null)

@@ -24,7 +24,6 @@ namespace PW_API.Controllers
 
         // GET: api/Torneos
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<Torneo>>> GetTorneos()
         {
           if (_context.Torneos == null)
@@ -36,7 +35,6 @@ namespace PW_API.Controllers
 
         // GET: api/Torneos/5
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<Torneo>> GetTorneo(int id)
         {
           if (_context.Torneos == null)
@@ -56,7 +54,6 @@ namespace PW_API.Controllers
         // PUT: api/Torneos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutTorneo(int id, Torneo torneo)
         {
             if (id != torneo.Id)
@@ -88,7 +85,6 @@ namespace PW_API.Controllers
         // POST: api/Torneos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<Torneo>> PostTorneo(TorneoPayload torneopayload)
         {
           if (_context.Torneos == null)
@@ -132,7 +128,6 @@ namespace PW_API.Controllers
 
         // DELETE: api/Torneos/5
         [HttpDelete("{id}")]
-        [Authorize]
         public async Task<IActionResult> DeleteTorneo(int id)
         {
             if (_context.Torneos == null)

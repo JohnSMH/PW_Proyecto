@@ -51,10 +51,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "IndexByTorneo",
-    pattern: "Torneo/IndexByTorneo/{id}",
-    defaults: new { controller = "TorneoController", action = "IndexByTorneo" }
-);
-
 app.Run();
